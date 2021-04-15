@@ -1,4 +1,4 @@
-![Problem Image](https://github.com/hitari/scratch-paper/blob/main/Algorithm-study/Hackerrank/Arrays/2D-array-DS/Problem.png "문제지")
+![Problem Image](https://raw.githubusercontent.com/hitari/scratch-paper/main/Algorithm-study/Hackerrank/interview-preparation-kit/Arrays/2D-array-DS/Problem.png "문제지")
 
 ## 코드
 
