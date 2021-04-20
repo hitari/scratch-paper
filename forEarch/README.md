@@ -15,6 +15,22 @@
 });
 ```
 
+ECMA 공식 스펙 문서를 보면 forEach에 대해 이렇게 정의되어 있다.
+
+1. Let O be ? ToObject(this value).
+2. Let len be ? LengthOfArrayLike(O).
+3. If IsCallable(callbackfn) is false, throw a TypeError exception.
+4. Let k be 0.
+5. Repeat, while k < len,
+a. Let Pk be ! ToString(𝔽(k)).
+b. Let kPresent be ? HasProperty(O, Pk).
+c. If kPresent is true, then
+i. Let kValue be ? Get(O, Pk).
+ii. Perform ? Call(callbackfn, thisArg, « kValue, 𝔽(k), O »).
+d. Set k to k + 1.
+6. Return undefined.
+
+
 ### 참조
 ```
 - https://velog.io/@hanameee/%EB%B0%B0%EC%97%B4%EC%97%90-%EB%B9%84%EB%8F%99%EA%B8%B0-%EC%9E%91%EC%97%85%EC%9D%84-%EC%8B%A4%EC%8B%9C%ED%95%A0-%EB%95%8C-%EC%95%8C%EC%95%84%EB%91%90%EB%A9%B4-%EC%A2%8B%EC%9D%84%EB%B2%95%ED%95%9C-%EC%9D%B4%EC%95%BC%EA%B8%B0%EB%93%A4
@@ -23,4 +39,9 @@
 - https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Operators/await
 - https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Promise/then
 - https://engineering.linecorp.com/ko/blog/dont-block-the-event-loop/
+
+// v8 엔진 -> forEach
+- https://github.com/v8/v8/blob/master/src/builtins/array-foreach.tq
+// ECMA
+- https://tc39.es/ecma262/#sec-array.prototype.foreach
 ```
