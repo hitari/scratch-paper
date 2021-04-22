@@ -3,6 +3,7 @@
 회사 레거시 소스 중에서 forEach 되어있는 부분에서 callback으로 This 배열에 key 값에 맞는 Ajax 호출 부분이 있는데, 이부분이 비동기적으로 돌아가서 추가 로직에서 특정 key에만 동기적으로 적용하기 위해 callback에서 Promise로 반환 받아 async awiat구문으로 받을 수 있을 거라고 생각 했었는데, 이게 왠일 await가 동기적 형태로 작동 되지 않고 비동기적으로 실행 되는 것이었다.  
 
 유사한 형태로 구성하자면 아래와 같다. 아래 구문 실행 할 경우 1초에 console을 1번씩 찍을 거 같지만 결과는 1234가 순식간에 뿌려지게 된다.
+  
 ``` javascript
 [1, 2, 3, 4].forEach(async (i) => {
   await new Promise((resolve) =>
@@ -39,7 +40,7 @@ d. Set k to k + 1.
 저 문서를 읽고 v8엔진 forEach 소스를 확인해 보니, v8엔진에 있는 주석 설명과 동일했다.
 그래서 아래에는 v8 엔진 소스에서 해당 부분만 옮겨 보았다.
 
-```
+``` c++
 // https://tc39.github.io/ecma262/#sec-array.prototype.foreach
 transitioning javascript builtin
 ArrayForEach(
@@ -107,8 +108,41 @@ transitioning builtin ArrayForEachLoopContinuation(implicit context: Context)(
   return Undefined;
 }
 ```
+
+v8엔진에서 정의된 내역을 기반으로 유사하게 javascript로 구현해 보았다.  
+(Special cases나 thisArg 같은 것은 제거하거나 javascript에 맞게 변형하였다.)
+
+``` javascript
+Array.prototype.forEach = function (...arguments) {
+  const O = this;
+  const len = this.length;
+
+  if(arguments.length === 0 || typeof arguments[0] !== 'function') {
+    throw new TypeError(arguments[0] + ' is not a function');
+  }
+
+  const callbackfn = arguments[0];
+  const thisArg = arguments[1] || this;
   
+  for(let k = 0; k < len; k = k + 1){
+    const kPresent = Object.prototype.hasOwnProperty.call(O, k);
+    if (kPresent === true) {
+      const kValue = Object.getOwnPropertyDescriptor(O, k).value;
+      callbackfn.call(thisArg, kValue, k, O);
+    }
+  }
+}
+
+```
   
+만들고 나니, 조금만 수정하면 바로 Polyfill로 사용할 수 있을거 같다...  
+여하튼, v8엔진 기반으로 구성해본결과 callback 호출 기반이라는 것을 알 수 있다.  
+그렇다면 callback이 비동기적으로 작동하느냐 그건 아니다. 단순 함수 호출일뿐이라 순차적으로 동작한다.  
+사실 이 문제의 해답을 찾기위해 Event Loop를 봐야한다.
+
+----- 
+  
+
   
 promise는 Microtask 들어간다 그러면.... async await 일땐?
   
