@@ -12,7 +12,7 @@
 | Arrays                     |   2/5    |
 | Dictionaries and Hashmaps  |   0/5    |
 | Sorting                    |   0/5    |
-| String Manipulation        |   0/5    |
+| String Manipulation        |   2/5    |
 | Greedy Algorithms          |   0/5    |
 | Search                     |   0/7    |
 | Dynamic Programming        |   0/4    |
