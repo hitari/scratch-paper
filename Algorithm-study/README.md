@@ -10,7 +10,7 @@
 | -------------------------- | :------: |
 | Warm-up Challenges         |   4/4    |
 | Arrays                     |   2/5    |
-| Dictionaries and Hashmaps  |   0/5    |
+| Dictionaries and Hashmaps  |   2/5    |
 | Sorting                    |   0/5    |
 | String Manipulation        |   2/5    |
 | Greedy Algorithms          |   0/5    |
