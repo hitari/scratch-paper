@@ -147,11 +147,6 @@ console.log('start')가 Callstack에 싸이고 출력하고 다음 Callstack에 
 그리고 console.log('end')가 실행 된후 callstack이 비어있으면 microtask에 있는 각 task들을 callstack에 올려서  
 1,2,3,4를 출력해 준다.
 
----
-
-promise는 Microtask 들어간다 그러면.... async await 일땐?
-async await가
-
 ### 참조
 
 ```
@@ -167,6 +162,3 @@ async await가
 // ECMA
 - https://tc39.es/ecma262/#sec-array.prototype.foreach
 ```
-
-forEach 문제점
-forEach Callback 구성
