@@ -1,6 +1,8 @@
 # 대량 리스트 최적화 스크롤
 
-지금 작업에서 부하가 많은 페이지인데, 선택 옵션이 과도하게 많은 케이스들이 발견 되었고 또 앞으로 더 많은 옵션이 들어가는 상황이 생겨서 옵션 목록이 제대로 안뜨거나 DOM 로드가 오래걸림 혹은 버벅거리는 문제들이 발생 되었다. 그래서 몇가지 아이디어를 스케치 한다음에 최적화 될수 있는 기능을 구현해 보고있다.
+최근에 작업하는 역역에서 초기 로딩 하는데 문제가 있는 페이지가 있어 최적화 작업을 하려고한다. 그 페이지는 기본적으로 이미지나 DOM이 많은 페이지인데, 문제되는 곳이 최근에 선택 옵션이 과도하게 많은 케이스들이 발견 되었고 또 앞으로 더 많은 옵션이 들어가는 상황이 생겨서 옵션 목록이 제대로 안뜨거나 DOM 로드가 오래걸림 혹은 버벅거리는 문제들이 발생 되었다. 그래서 몇가지 아이디어를 스케치 한다음에 최적화 될수 있는 기능을 연구 하고 구현해 보고자 한다.
+
+첫번째, 요즘 가장 많이 사용한다는 IntersectionObserver로 작업해 보았다.
 
 1. IntersectionObserver를 기반으로 한 Infinite scroll 구현
 
@@ -219,6 +221,7 @@ setMinHeight();
 ```
 
 ![Fast Scroll Image](https://raw.githubusercontent.com/hitari/scratch-paper/main/Make-something/Optimized-scroll-of-large-lists/fastScroll.gif "빠른 스크롤 GIF")
+
 화면 그려질때 2000개의 돔을 바로 그려준 것처럼 빠르게 마지막 까지 이동할 수 있다. 그리고 이동 시점의 페이지를 계산해서 인피니티 스크롤 처럼 페이지 단위로 그려주기 때문에 초기 랜더 부하도 많이 줄여준다.
 
 [테스트 페이지로 이동](https://codesandbox.io/s/youthful-river-hd46t?file=/src/styles.css:0-36)
